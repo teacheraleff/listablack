@@ -1,297 +1,328 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLAP | Black Friday - Acesso Antecipado</title>
-    <!-- Favicon da SLAP -->
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749543469/SLAP_FAVICON_AMARELO_coilvj.png">
-    
-    <!-- Tailwind CSS -->
+    <title>Promoção Relâmpago - Slap Inglês</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: DM Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.2.0/vanilla-masker.min.js"></script>
     <style>
-        /* Aplicando a fonte padrão e cores do Hub Pedagógico */
-        html, body {
-            /* Garante que o body não tem scroll horizontal indesejado e usa a altura total */
-            height: 100%;
-            overflow-x: hidden;
-            transition: background-color 0.4s ease; /* Adiciona transição para a mudança de cor de fundo */
-        }
         body {
-            font-family: 'DM Sans', sans-serif;
-            display: flex;
-            flex-direction: column;
-            /* Cor de fundo padrão (será sobrescrita pelo JS/classes) */
-            background-color: #1c1917; /* stone-900 (Fundo inicial escuro) */
-            color: #f5f5f4; /* stone-100 (Cor inicial do texto) */
-            /* Controla o scroll vertical, só aparece se o conteúdo for maior que o viewport */
-            overflow-y: auto; 
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            overflow-x: hidden;
         }
 
-        /* Classes dinâmicas para mudar o fundo no JS */
-        .bg-dark { background-color: #1c1917; color: #f5f5f4; }
-        .bg-yellow { background-color: #F1D24B; color: #44403c; }
-        .bg-white-quiz { background-color: white; color: #44403c; } /* Mantido por consistência, será usado para a tela de Agradecimento */
-        
-        /* Otimiza a rolagem de ecrã para evitar barras duplas e scroll desnecessário */
-        main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh; /* Garante que o main centraliza o conteúdo verticalmente */
-            padding: 1rem 1rem; /* Reduz padding vertical base para o mobile */
+        /* Animação de Fundo Elétrico */
+        .storm-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            z-index: -2;
         }
 
-        /* Estilos base para todas as "telas" */
-        .screen-view {
-            width: 100%; 
-            max-width: 48rem; /* Limita a largura do conteúdo para desktop */
-            text-align: center;
-            padding: 1.5rem 0;
-            height: auto;
+        .lightning-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            z-index: -1;
+            animation: flash 7s infinite;
+            pointer-events: none;
         }
 
-        /* Estilos específicos para Ecrãs de Apresentação Escuros */
-        .dark-splash {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* Estilos de Botão mantidos do design original */
-        .action-button {
-             background-color: #F1D24B; 
-             color: #44403c; /* stone-800 */
-             border: none; 
-             padding: 0.75rem 1.5rem; 
-             border-radius: 9999px; 
-             font-weight: 700; 
-             cursor: pointer; 
-             transition: background-color 0.2s, transform 0.2s;
-             display: inline-flex;
-             align-items: center;
-             gap: 0.5rem;
-             text-decoration: none;
-        }
-        .action-button:hover:not(:disabled) {
-            background-color: #eab308; /* Darker yellow */
-            transform: translateY(-2px);
-        }
-        .action-button:disabled {
-            background-color: #a8a29e; /* stone-400 */
-            cursor: not-allowed;
+        @keyframes flash {
+            0%, 90%, 100% { opacity: 0; }
+            92% { opacity: 0.6; }
+            93% { opacity: 0; }
+            94% { opacity: 0.4; }
+            96% { opacity: 0; }
         }
 
+        /* Texto Neon */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.5), 0 0 20px rgba(250, 204, 21, 0.3);
+        }
+
+        /* Botão Pulsante */
+        .btn-pulse {
+            animation: pulse-yellow 2s infinite;
+        }
+
+        @keyframes pulse-yellow {
+            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(250, 204, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        /* Ícone de Raio Vibrando */
+        .shake-icon {
+            animation: shake 3s cubic-bezier(.36,.07,.19,.97) infinite;
+            transform: translate3d(0, 0, 0);
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-10deg); }
+            20%, 80% { transform: translate3d(2px, 0, 0) rotate(10deg); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0) rotate(-10deg); }
+            40%, 60% { transform: translate3d(4px, 0, 0) rotate(10deg); }
+        }
     </style>
 </head>
-<body class="bg-dark text-stone-100">
+<body class="text-white min-h-screen flex flex-col relative">
 
-    <main id="app-container">
-        <!-- Contêiner principal para centralizar e limitar o conteúdo no desktop -->
-        <div class="w-full max-w-7xl mx-auto">
-        
-            <!-- SPLASH SCREEN 1: BLACK FRIDAY PROMO -->
-            <div id="splash-1-view" class="dark-splash screen-view mx-auto md:max-w-xl">
-                <!-- Ícone Original (Fundo Amarelo) - rounded-lg ATIVO -->
-                <img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749349751/DBB440C2-684E-4DCF-9CD3-B2DDC18F1E53_3_vgocga.jpg" alt="SLAP Logo" class="w-32 h-auto mx-auto mb-4 sm:mb-6 rounded-lg">
-                <h1 class="text-4xl sm:text-5xl font-bold text-[#F1D24B] mb-4 sm:mb-6">
-                    Quer ser o primeiro a saber da MEGA OFERTA de Black Friday do SLAP?
-                </h1>
-                <!-- O botão agora vai diretamente para o formulário -->
-                <button class="action-button bg-[#F1D24B] text-stone-900 text-xl px-12 py-4" onclick="goToForm()">
-                    Quero Acesso Antecipado!
-                </button>
-            </div>
+    <!-- Efeitos de Fundo -->
+    <div class="storm-bg"></div>
+    <div class="lightning-flash"></div>
 
-            <!-- Passo 1: Formulário de Inscrição (Fundo Amarelo) -->
-            <div id="form-view" class="screen-view hidden flex justify-center w-full mx-auto">
-                <!-- Conteúdo do Formulário -->
-                <div class="text-stone-800 p-6 sm:p-8 rounded-xl text-center w-full md:max-w-lg">
-                    <!-- Ícone Original (Fundo Amarelo) - rounded-lg ATIVO -->
-                    <img src="https://res.cloudinary.com/dqfi22uz0/image/upload/v1749349751/DBB440C2-684E-4DCF-9CD3-B2DDC18F1E53_3_vgocga.jpg" alt="SLAP Logo" class="w-32 h-auto mx-auto mb-4 rounded-lg">
-                    <h1 class="text-3xl font-bold text-stone-900">Garanta Seu Acesso VIP</h1>
-                    <p class="text-stone-700 mt-2 mb-6">Preencha seus dados para receber as ofertas da Black Friday com exclusividade.</p>
-                    <!-- Formspree action é configurado para receber os dados -->
-                    <form id="lead-form" action="https://formspree.io/f/xyzblgop" method="POST" class="text-left space-y-4 max-w-sm mx-auto">
-                        <div>
-                            <label for="name" class="font-semibold text-stone-800 block mb-1">Nome Completo</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-2 bg-yellow-50 border-2 border-transparent rounded-lg focus:outline-none focus:border-stone-800 text-stone-900 placeholder-stone-500" required>
-                        </div>
-                        <div>
-                            <label for="email" class="font-semibold text-stone-800 block mb-1">E-mail</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 bg-yellow-50 border-2 border-transparent rounded-lg focus:outline-none focus:border-stone-800 text-stone-900 placeholder-stone-500" required>
-                        </div>
-                        <div>
-                            <label for="whatsapp" class="font-semibold text-stone-800 block mb-1">WhatsApp (com DDD)</label>
-                            <input type="tel" id="whatsapp" name="whatsapp" class="w-full px-4 py-2 bg-yellow-50 border-2 border-transparent rounded-lg focus:outline-none focus:border-stone-800 text-stone-900 placeholder-stone-500" placeholder="(XX) XXXXX-XXXX" required>
-                        </div>
-                        
-                        <!-- NOVO CAMPO: LISTA SUSPENSA DE TEACHERS VIP -->
-                        <div>
-                            <label for="vip_teacher" class="font-semibold text-stone-800 block mb-1">Qual teacher te deu esse acesso VIP?</label>
-                            <select id="vip_teacher" name="vip_teacher" class="w-full px-4 py-2 bg-yellow-50 border-2 border-transparent rounded-lg focus:outline-none focus:border-stone-800 text-stone-900" required>
-                                <option value="" disabled selected>Selecione um(a) teacher</option>
-                                <option value="Teacher Victor">Teacher Victor</option>
-                                <option value="Teacher Letícia">Teacher Letícia</option>
-                                <option value="Teacher Anael">Teacher Anael</option>
-                                <option value="Teacher Jaynni">Teacher Jaynni</option>
-                                <option value="Teacher Areli">Teacher Areli</option>
-                                <option value="Teacher Felipe">Teacher Felipe</option>
-                            </select>
-                        </div>
+    <!-- Navegação Simples -->
+    <nav class="w-full p-6 flex justify-center md:justify-between items-center z-10 container mx-auto">
+        <div class="text-2xl font-black text-yellow-400 tracking-tighter flex items-center gap-2">
+            <i class="fas fa-bolt"></i> SLAP INGLÊS
+        </div>
+        <div class="hidden md:block text-sm text-gray-400">
+            Fale conosco: contato@slapingles.com
+        </div>
+    </nav>
 
-                        <div class="text-center pt-4">
-                            <button id="submit-lead-btn" type="submit" class="action-button w-full sm:w-auto justify-center bg-stone-800 text-white hover:bg-stone-900">
-                                Receber as Ofertas
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </button>
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow flex items-center justify-center p-4 z-10">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                
+                <!-- Coluna da Esquerda: Copywriting e Urgência -->
+                <div class="flex-1 text-center lg:text-left space-y-6">
+                    <div class="inline-block bg-yellow-500 text-black font-bold px-4 py-1 rounded-full text-sm mb-2 animate-bounce">
+                        <i class="fas fa-clock mr-1"></i> OFERTA POR TEMPO LIMITADO
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-black leading-tight">
+                        PROMOÇÃO <br>
+                        <span class="text-yellow-400 text-glow">RELÂMPAGO</span>
+                        <i class="fas fa-bolt text-yellow-400 shake-icon ml-2"></i>
+                    </h1>
+                    
+                    <p class="text-xl lg:text-2xl text-gray-200 font-light border-l-4 border-yellow-400 pl-4">
+                        Sua última chance de ficar <strong class="text-white">fluente em 2026</strong>.
+                    </p>
+
+                    <p class="text-gray-400">
+                        Não deixe para o próximo ano o inglês que vai mudar sua carreira hoje. Vagas com desconto exclusivo apenas para quem preencher o formulário agora.
+                    </p>
+
+                    <!-- Contador Regressivo Fictício -->
+                    <div class="flex justify-center lg:justify-start gap-4 mt-8">
+                        <div class="bg-gray-800 p-3 rounded-lg text-center min-w-[80px] border border-gray-700">
+                            <span class="block text-2xl font-bold text-yellow-400" id="hours">30</span>
+                            <span class="text-xs text-gray-400">HORAS</span>
                         </div>
-                    </form>
+                        <div class="bg-gray-800 p-3 rounded-lg text-center min-w-[80px] border border-gray-700">
+                            <span class="block text-2xl font-bold text-yellow-400" id="minutes">00</span>
+                            <span class="text-xs text-gray-400">MIN</span>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded-lg text-center min-w-[80px] border border-gray-700">
+                            <span class="block text-2xl font-bold text-yellow-400" id="seconds">00</span>
+                            <span class="text-xs text-gray-400">SEG</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- NEW: Thank You Screen (Fundo Branco/Claro) -->
-            <div id="thank-you-view" class="screen-view hidden mx-auto md:max-w-3xl">
-                <div class="p-8 text-center w-full text-stone-800">
-                    <!-- Ícone de Confirmação (Verificado) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto mb-6 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <!-- Coluna da Direita: Formulário -->
+                <div class="w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
+                    <div class="bg-yellow-400 p-4 text-center">
+                        <h3 class="font-black text-xl uppercase tracking-wider text-slate-900">
+                            <i class="fas fa-star mr-1"></i> Garanta sua Vaga
+                        </h3>
+                    </div>
                     
-                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-stone-900">Acesso Antecipado Confirmado!</h2>
-                    
-                    <p class="text-xl text-stone-700 mb-8 max-w-lg mx-auto leading-relaxed font-semibold">
-                         Nossa Black Friday será no dia 14, mas você receberá as ofertas no dia 13, antes de todo mundo!
-                    </p>
-                    
-                    <p class="text-stone-600 mb-8">
-                        Fique de olho no seu e-mail e WhatsApp!
-                    </p>
+                    <div class="p-8">
+                        <form id="promoForm" onsubmit="handleSubmit(event)" class="space-y-5">
+                            
+                            <!-- Configurações do Formspree (Assunto) -->
+                            <input type="hidden" name="_subject" value="Nova Inscrição: Promoção Relâmpago!">
+                            
+                            <!-- Campo Nome -->
+                            <div>
+                                <label for="nome" class="block text-sm font-bold text-gray-700 mb-1">Nome Completo</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-user text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="nome" name="nome" required 
+                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                                        placeholder="Ex: Maria Silva">
+                                </div>
+                            </div>
 
-                    <!-- Botão CTA (opcional: leva para o site principal) -->
-                    <div class="text-center">
-                         <a href="https://slapingles.com" target="_blank" class="action-button text-lg px-8 py-3 bg-stone-800 text-white hover:bg-stone-900">
-                             Visitar SLAP
-                         </a>
+                            <!-- Campo Data de Nascimento -->
+                            <div>
+                                <label for="nascimento" class="block text-sm font-bold text-gray-700 mb-1">Data de Nascimento</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-calendar text-gray-400"></i>
+                                    </div>
+                                    <input type="date" id="nascimento" name="nascimento" required 
+                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all">
+                                </div>
+                            </div>
+
+                            <!-- Campo WhatsApp -->
+                            <div>
+                                <label for="whatsapp" class="block text-sm font-bold text-gray-700 mb-1">WhatsApp</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fab fa-whatsapp text-green-500 text-lg"></i>
+                                    </div>
+                                    <input type="tel" id="whatsapp" name="whatsapp" required 
+                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                                        placeholder="(DD) 99999-9999">
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Entraremos em contato via WhatsApp.</p>
+                            </div>
+
+                            <!-- Botão Submit -->
+                            <button type="submit" 
+                                class="btn-pulse w-full bg-slate-900 text-white font-black py-4 rounded-lg hover:bg-slate-800 transition-colors duration-300 flex justify-center items-center gap-2 text-lg uppercase tracking-wide group">
+                                Quero o Desconto
+                                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform text-yellow-400"></i>
+                            </button>
+                        </form>
+
+                        <!-- Mensagem de Sucesso (Oculta por padrão) -->
+                        <div id="successMessage" class="hidden text-center py-8">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-check text-green-500 text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Inscrição Recebida!</h3>
+                            <p class="text-gray-600 mb-4">Prepare-se para o relâmpago da fluência.</p>
+                            <p class="text-sm text-gray-500">Enviaremos os detalhes para o seu WhatsApp em breve.</p>
+                            <button onclick="resetForm()" class="mt-4 text-yellow-600 font-bold hover:underline text-sm">Voltar</button>
+                        </div>
+
+                    </div>
+                    <div class="bg-gray-50 p-3 text-center border-t border-gray-100">
+                        <p class="text-xs text-gray-400 flex justify-center items-center gap-1">
+                            <i class="fas fa-lock"></i> Seus dados estão 100% seguros.
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
-    
-    <!-- Áudio removido, não é mais necessário para esta funcionalidade -->
+
+    <footer class="w-full py-6 text-center text-gray-500 text-sm z-10">
+        <p>&copy; 2026 Slap Inglês. Todos os direitos reservados.</p>
+        <p class="mt-1 opacity-50">Promoção válida enquanto durarem os estoques.</p>
+    </footer>
 
     <script>
-        // --- ELEMENTOS DO DOM ---
-        const splash1View = document.getElementById('splash-1-view');
-        const formView = document.getElementById('form-view');
-        const thankYouView = document.getElementById('thank-you-view');
-        const leadForm = document.getElementById('lead-form');
-        
-        // --- Variáveis para armazenar os dados do utilizador (para enviar ao Formspree) ---
-        let studentName = '';
-        let studentEmail = '';
-        let studentWhatsapp = '';
-
-        // --- FUNÇÕES DE NAVEGAÇÃO ENTRE TELAS ---
-        function hideAllViews() {
-            splash1View.classList.add('hidden');
-            formView.classList.add('hidden');
-            thankYouView.classList.add('hidden');
-        }
-
-        // Função para aplicar as classes de fundo ao body
-        function setBodyBackground(viewId) {
-            document.body.classList.remove('bg-dark', 'bg-yellow', 'bg-white-quiz', 'text-stone-100', 'text-stone-800');
-            
-            if (viewId === 'splash-1-view') {
-                document.body.classList.add('bg-dark', 'text-stone-100');
-            } else if (viewId === 'form-view') {
-                document.body.classList.add('bg-yellow', 'text-stone-800');
-            } else if (viewId === 'thank-you-view') {
-                // Fundo branco para a tela de agradecimento para um visual limpo de sucesso
-                document.body.classList.add('bg-white-quiz', 'text-stone-800');
-            }
-        }
-
-        function startSplash1() {
-            hideAllViews();
-            setBodyBackground('splash-1-view');
-            splash1View.classList.remove('hidden');
-        }
-
-        window.goToForm = function() {
-            hideAllViews();
-            setBodyBackground('form-view');
-            formView.classList.remove('hidden');
-            // Foca no primeiro campo do formulário
-            document.getElementById('name').focus();
-        }
-
-        window.goToThankYou = function() {
-            hideAllViews();
-            setBodyBackground('thank-you-view');
-            thankYouView.classList.remove('hidden');
-        }
-        
-        // --- EVENTO DE ENVIO DO FORMULÁRIO (ENVIA LEAD E MOSTRA MENSAGEM) ---
-        leadForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Armazena os dados do utilizador para possível uso (e envio via fetch)
-            studentName = document.getElementById('name').value;
-            studentEmail = document.getElementById('email').value;
-            studentWhatsapp = document.getElementById('whatsapp').value;
-            
-            const submitBtn = document.getElementById('submit-lead-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando...';
-
-            // Prepara os dados para o Formspree
-            const submissionData = new FormData(leadForm);
-            
-            // Adiciona um campo de controle para identificar a origem (opcional)
-            submissionData.append('Origem', 'Black Friday Landing Page'); 
-
-            // Envia os dados para o Formspree
-            // Note: O Formspree action foi atualizado para https://formspree.io/f/xyzblgop
-            fetch(leadForm.action, {
-                method: 'POST',
-                body: submissionData,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    // Sucesso no envio: vai para a tela de agradecimento
-                    console.log("Lead enviado com sucesso para o Formspree.");
-                    goToThankYou();
-                } else {
-                    // Se houver erro, tenta mostrar a mensagem de sucesso mesmo assim
-                    // mas imprime o erro no console
-                    console.error("Houve um problema ao enviar o lead para o Formspree, mas continuando para a tela de sucesso.");
-                    goToThankYou(); 
-                }
-            }).catch(error => {
-                // Erro de conexão
-                console.error("Erro de conexão ao enviar o lead:", error);
-                // Força a tela de agradecimento
-                goToThankYou();
-            }).finally(() => {
-                // Reseta o estado do botão
-                submitBtn.disabled = false;
-                // Corrigido o texto do botão para refletir a nova funcionalidade de lead
-                submitBtn.innerHTML = `Receber as Ofertas <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
-            });
+        // Máscara para o WhatsApp
+        document.addEventListener("DOMContentLoaded", function() {
+            VMasker(document.querySelector("#whatsapp")).maskPattern("(99) 99999-9999");
+            startTimer();
         });
-        
-        // --- INICIA O FLUXO NO PRIMEIRO SPLASH SCREEN ---
-        window.onload = startSplash1;
+
+        // Função de Contagem Regressiva (Falsa urgência)
+        function startTimer() {
+            let hours = 30;
+            let minutes = 0;
+            let seconds = 0;
+            
+            const hourElement = document.getElementById('hours');
+            const minElement = document.getElementById('minutes');
+            const secElement = document.getElementById('seconds');
+
+            setInterval(function() {
+                if (seconds > 0) {
+                    seconds--;
+                } else {
+                    if (minutes > 0) {
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        if (hours > 0) {
+                            hours--;
+                            minutes = 59;
+                            seconds = 59;
+                        } else {
+                            // Reinicia quando chega a zero para manter o efeito
+                            hours = 30;
+                            minutes = 0;
+                            seconds = 0;
+                        }
+                    }
+                }
+
+                hourElement.innerText = hours < 10 ? "0" + hours : hours;
+                minElement.innerText = minutes < 10 ? "0" + minutes : minutes;
+                secElement.innerText = seconds < 10 ? "0" + seconds : seconds;
+            }, 1000);
+        }
+
+        // Manipulação do Formulário
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const btn = form.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            // Link configurado com o seu ID do Formspree
+            const formspreeEndpoint = "https://formspree.io/f/mblyowaq"; 
+
+            // Feedback visual de carregamento
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
+            btn.disabled = true;
+
+            // Envio real via AJAX para o Formspree
+            fetch(formspreeEndpoint, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Sucesso: Esconde form, mostra mensagem
+                    document.getElementById('promoForm').classList.add('hidden');
+                    document.getElementById('successMessage').classList.remove('hidden');
+                    form.reset(); // Limpa o formulário
+                } else {
+                    return response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            throw new Error(data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            throw new Error("Erro desconhecido no envio.");
+                        }
+                    })
+                }
+            })
+            .catch(error => {
+                // Erro
+                console.error("Erro:", error);
+                alert("Ops! Verifique se você configurou o ID do Formspree corretamente no código.\nErro: " + error.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        function resetForm() {
+            document.getElementById('promoForm').reset();
+            document.getElementById('promoForm').querySelector('button').innerHTML = `Quero o Desconto <i class="fas fa-arrow-right ml-2 text-yellow-400"></i>`;
+            document.getElementById('promoForm').querySelector('button').disabled = false;
+            document.getElementById('promoForm').classList.remove('hidden');
+            document.getElementById('successMessage').classList.add('hidden');
+        }
     </script>
 </body>
 </html>

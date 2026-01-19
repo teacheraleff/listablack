@@ -149,6 +149,10 @@
                             <!-- Configurações do Formspree (Assunto) -->
                             <input type="hidden" name="_subject" value="Nova Inscrição: Promoção Relâmpago!">
                             
+                            <!-- CAMPO DE INDICAÇÃO (AUTO-PREENCHIDO) -->
+                            <!-- Este campo captura o ?ref=nome da URL -->
+                            <input type="hidden" id="indicado_por" name="indicado_por" value="Organico">
+
                             <!-- Campo Nome -->
                             <div>
                                 <label for="nome" class="block text-sm font-bold text-gray-700 mb-1">Nome Completo</label>
@@ -234,6 +238,21 @@
         // Máscara para o WhatsApp
         document.addEventListener("DOMContentLoaded", function() {
             VMasker(document.querySelector("#whatsapp")).maskPattern("(99) 99999-9999");
+            
+            // LÓGICA DE INDICAÇÃO (REFERRAL)
+            // Procura por ?ref=nome na URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const referral = urlParams.get('ref');
+            
+            if (referral) {
+                // Se encontrar, preenche o campo oculto
+                const inputIndicacao = document.getElementById('indicado_por');
+                if(inputIndicacao) {
+                    inputIndicacao.value = referral;
+                    console.log("Visitante indicado por:", referral);
+                }
+            }
+
             startTimer();
         });
 
